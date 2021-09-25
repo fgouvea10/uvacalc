@@ -8,3 +8,12 @@ export const Content = styled.View`
     display: flex;
     flex-direction: column;
 `;
+
+export const Header = styled.View`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -100px;
+    margin-bottom: 50px;
+`;

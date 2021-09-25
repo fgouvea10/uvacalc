@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
     Keyboard,
     KeyboardAvoidingView, 
@@ -9,27 +9,38 @@ import {
     Text,
     StyleSheet,
     Alert,
+    Image,
 } from 'react-native';
 
-import { validator } from '../../utils/validator'
+import logoImg from '../../assets/logo.png';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import colors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 import { Span } from '../../styles/components';
-import { Content } from './styles';
+import { Content, Header } from './styles';
 
 function Landing() {
     const [ava_one, setAvaOne] = useState('');
     const [ava_two, setAvaTwo] = useState('');
     const [a_two, setATwo] = useState('');
     const [a_three, setAThree] = useState('');
-    const [isOk, setIsOk] = useState(false);
     const [average, setAverage] = useState(0);
-    const [situation, setSituation] = useState(false); //situation true passou
+    const [situation, setSituation] = useState(false);
     const [isCalculated, setIsCalculated] = useState(false);
 
     function checkFields() {
-        if (!ava_one && !ava_two && !a_two && !a_three) {
+        if (
+            parseFloat(ava_one) > 10 || 
+            parseFloat(ava_two) > 10 ||
+            parseFloat(a_two) > 10 ||
+            parseFloat(a_three) > 10) {
+                Alert.alert('Insira valores de 0 até 10.');
+                return false;
+
+        } else if (!ava_one && !ava_two && !a_two && !a_three) {
             Alert.alert('Nenhum campo foi preenchido.');
             return false;
 
@@ -51,7 +62,6 @@ function Landing() {
         
         } else if (!ava_two && !a_three) {
             Alert.alert('Os campos da AVA 2 e A3 não foram preenchidos.');
-
             return false;
             
         } else if (!ava_one) {
@@ -82,34 +92,38 @@ function Landing() {
 
         if (checkSuccessful) {
             const a_one = (parseFloat(ava_one) + parseFloat(ava_two)) / 2;
-            const newATwo = parseFloat(a_two) * 0.6;
-            const averageValue = (a_one + newATwo) / 2
+            const averageValue = (a_one + parseFloat(a_two)) / 2;
+
+            console.log('primeiro console', averageValue);
 
             if (averageValue < parseFloat(a_three)) {
-                const newAverage = (a_one * 0.4) + a_three;
-
-                if (parseFloat(newAverage) > 7) {
-                    setSituation(true);
-                    setIsCalculated(true);
-                    setAverage(parseFloat(newAverage));
-                } else {
-                    setSituation(false);
-                    setIsCalculated(true);
-                    setAverage(parseFloat(newAverage));
-                }
-            } else {
-                const newAverage = (a_one * 0.4) + newATwo;
+                const newAverage = (a_one + parseFloat(a_three)) / 2;
+                console.log('primeiro if', newAverage);
 
                 if (newAverage > 7) {
                     setSituation(true);
                     setIsCalculated(true);
-                    setAverage(newAverage);
+                    setAverage(Number(newAverage.toFixed(2)));
                 } else {
                     setSituation(false);
                     setIsCalculated(true);
-                    setAverage(newAverage);
+                    setAverage(Number(newAverage.toFixed(2)));
+                }
+            } else {
+                console.log('segundo if', averageValue);
+
+                if (averageValue > 7) {
+                    setSituation(true);
+                    setIsCalculated(true);
+                    setAverage(Number(averageValue.toFixed(2)));
+                } else {
+                    setSituation(false);
+                    setIsCalculated(true);
+                    setAverage(Number(averageValue.toFixed(2)));
                 }
             }
+
+            Keyboard.dismiss();
         }
     }
     
@@ -121,6 +135,11 @@ function Landing() {
             >
                 <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                     <Content>
+                        <Header>
+                            <Image source={logoImg} style={styles.image} />
+
+                            <Text>⚠️ Insira valores de 0 até 10</Text>
+                        </Header>
                         <View style={styles.div}>
                             <Input 
                                 title="AVA 1" 
@@ -182,6 +201,12 @@ const styles = StyleSheet.create({
         paddingHorizontal: 31,
     },
 
+    image: {
+        width: 100,
+        height: 100,
+        marginBottom: 20,
+    },
+
     div: {
         display: 'flex',
         flexDirection: 'row',
@@ -201,9 +226,9 @@ const styles = StyleSheet.create({
     },
 
     status: {
-        color: '#004D7B',
+        color: colors.blue,
         fontSize: 28,
-        fontWeight: 'bold',
+        fontFamily: fonts.bold,
     },
 });
 
