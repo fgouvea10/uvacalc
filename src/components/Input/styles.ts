@@ -1,20 +1,23 @@
 import styled from 'styled-components/native';
+import colors from '../../styles/colors';
 
 export const Container = styled.View`
     flex: 1;
     width: 100%;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 `;
 
 export const Label = styled.Text`
     font-size: 12px;
-    color: #7A7A7A;
+    color: ${colors.gray};
     margin-bottom: 10px;
+    padding-right: 100px;
 `;
 
 export const InputText = styled.TextInput`
-    width: 90%;
+    width: 100%;
     padding: 10px 16px;
-    border: 1px solid #C4C4C4;
+    border: 1px solid ${colors.borders};
+    
 `;

@@ -1,8 +1,10 @@
 import styled from 'styled-components/native';
+import colors from '../../styles/colors';
 
 export const Container = styled.TouchableOpacity`
-    background: #004D7B;
-    padding: 15px 50px;
+    width: 100%;
+    background: ${colors.blue};
+    padding: 15px 0;
     border-radius: 16px;
     justify-content: center;
     align-items: center;
@@ -12,5 +14,5 @@ export const Container = styled.TouchableOpacity`
 
 export const Text = styled.Text`
     font-size: 16px;
-    color: #ffffff;
+    color: ${colors.white};
 `;
