@@ -12,3 +12,9 @@ export const Label = styled.Text`
     color: #7A7A7A;
     margin-bottom: 10px;
 `;
+
+export const InputText = styled.TextInput`
+    width: 90%;
+    padding: 10px 16px;
+    border: 1px solid #C4C4C4;
+`;

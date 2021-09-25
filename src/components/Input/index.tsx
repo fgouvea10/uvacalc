@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, TextInputProps } from 'react-native';
+import { TextInputProps } from 'react-native';
 
 import { Container, Label, InputText } from './styles';
 
@@ -14,7 +14,7 @@ function Input({ title, ...rest }: InputProps) {
                 {title}
             </Label>
 
-            <TextInput {...rest} keyboardType="numeric" />
+            <InputText {...rest} keyboardType="numeric" />
         </Container>
     );
 }
